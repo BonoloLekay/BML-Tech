@@ -1,10 +1,4 @@
-/* =========================================================
-   BMLTECH WEBSITE JAVASCRIPT
-========================================================= */
-
-/* =========================================================
-   MOBILE NAVIGATION
-========================================================= */
+// Mobile navigation
 
 const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
@@ -13,8 +7,6 @@ if (menuToggle && navMenu) {
   menuToggle.addEventListener("click", function () {
     navMenu.classList.toggle("active");
   });
-
-  // Close mobile menu when a link is clicked
 
   const navLinks = navMenu.querySelectorAll("a");
 
@@ -25,55 +17,37 @@ if (menuToggle && navMenu) {
   });
 }
 
-/* =========================================================
-   CONTACT FORM - FORMSPREE
-========================================================= */
+// Contact form
 
 const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
 
 if (contactForm) {
   contactForm.addEventListener("submit", async function (event) {
-    // Stop normal page refresh
-
     event.preventDefault();
 
     const submitButton = contactForm.querySelector('button[type="submit"]');
 
-    // Change button while sending
-
     if (submitButton) {
       submitButton.disabled = true;
-
       submitButton.textContent = "Sending...";
     }
 
-    // Clear previous message
-
     if (formMessage) {
       formMessage.textContent = "";
-
       formMessage.style.display = "none";
     }
-
-    // Collect form information
 
     const formData = new FormData(contactForm);
 
     try {
       const response = await fetch(contactForm.action, {
         method: "POST",
-
         body: formData,
-
         headers: {
           Accept: "application/json",
         },
       });
-
-      /* =============================================
-               SUCCESS
-            ============================================= */
 
       if (response.ok) {
         if (formMessage) {
@@ -83,19 +57,14 @@ if (contactForm) {
           formMessage.style.display = "block";
         }
 
-        // Clear form
-
         contactForm.reset();
       } else {
-        /* =============================================
-               ERROR FROM FORMSPREE
-            ============================================= */
         let data = {};
 
         try {
           data = await response.json();
         } catch (error) {
-          // Ignore JSON parsing error
+          console.log("Could not read server response.");
         }
 
         if (formMessage) {
@@ -112,10 +81,6 @@ if (contactForm) {
         }
       }
     } catch (error) {
-      /* =============================================
-           NETWORK ERROR
-        ============================================= */
-
       console.error("Form submission error:", error);
 
       if (formMessage) {
@@ -125,22 +90,15 @@ if (contactForm) {
         formMessage.style.display = "block";
       }
     } finally {
-      /* =============================================
-           RESTORE BUTTON
-        ============================================= */
-
       if (submitButton) {
         submitButton.disabled = false;
-
         submitButton.textContent = "Send Enquiry →";
       }
     }
   });
 }
 
-/* =========================================================
-   CURRENT YEAR
-========================================================= */
+// Current year
 
 const currentYear = document.getElementById("currentYear");
 
@@ -148,9 +106,7 @@ if (currentYear) {
   currentYear.textContent = new Date().getFullYear();
 }
 
-/* =========================================================
-   SMOOTH SCROLLING
-========================================================= */
+// Smooth scrolling
 
 const pageLinks = document.querySelectorAll('a[href^="#"]');
 
